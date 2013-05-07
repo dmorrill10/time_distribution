@@ -1,9 +1,10 @@
-require_relative "time_distribution/version"
+require "time_distribution/version"
 
-require_relative 'time_distribution/time'
+require 'time_distribution/time'
+
+require 'time_distribution/smart_duration'
+require 'time_distribution/task'
+require 'time_distribution/work_day'
 
 module TimeDistribution
-  require_relative 'time_distribution/smart_duration'
-  require_relative 'time_distribution/task'
-  require_relative 'time_distribution/work_day'
 end

@@ -18,9 +18,14 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "chronic"
-  gem.add_dependency "chronic_duration"
-  gem.add_dependency "ruby-duration"
-  
-  gem.add_development_dependency "rake"
+  gem.add_dependency "chronic", '~> 0.9'
+  gem.add_dependency "chronic_duration", '~> 0.10'
+  gem.add_dependency "ruby-duration", '~> 3.0'
+
+  gem.add_development_dependency "rake", '~> 10.0'
+  gem.add_development_dependency "turn", '~> 0.9'
+  gem.add_development_dependency "awesome_print", '~> 1.1'
+  gem.add_development_dependency "minitest", '~> 4.7'
+  gem.add_development_dependency "pry-rescue", '~> 1.1'
+  gem.add_development_dependency "simplecov", '~> 0.7'
 end
