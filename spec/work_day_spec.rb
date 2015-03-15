@@ -14,6 +14,46 @@ describe WorkDay do
     @patient.date.must_equal Chronic.parse(@x_date)
     @patient.tasks.must_equal @x_tasks
   end
+  describe 'to_hours' do
+    it 'works without argument' do
+      @x_tasks[0].expect(:to_hours, 1.1)
+      @x_tasks[1].expect(:to_hours, 2.6)
+      @patient.to_hours.must_equal 1.1 + 2.6
+    end
+    it 'works with arguments' do
+      @x_tasks[0].expect(:to_hours, 1.1)
+      @x_tasks[1].expect(:to_hours, 2.6)
+      @x_tasks[0].expect(:subject, :relevant_task)
+      @x_tasks[1].expect(:subject, :irrelevant_task)
+      @patient.to_hours(:relevant_task).must_equal 1.1
+
+      @x_tasks[0].expect(:to_hours, 1.1)
+      @x_tasks[1].expect(:to_hours, 2.6)
+      @x_tasks[0].expect(:subject, :relevant_task)
+      @x_tasks[1].expect(:subject, :irrelevant_task)
+      @patient.to_hours(:irrelevant_task).must_equal 2.6
+
+      @x_tasks[0].expect(:to_hours, 1.1)
+      @x_tasks[1].expect(:to_hours, 2.6)
+      @x_tasks[0].expect(:subject, :relevant_task)
+      @x_tasks[1].expect(:subject, :irrelevant_task)
+      @patient.to_hours(:relevant_task, :irrelevant_task).must_equal 1.1 + 2.6
+    end
+  end
+  describe 'to_md' do
+    it 'works' do
+      @x_tasks[0].expect(:to_s, 'Task 1')
+      @x_tasks[1].expect(:to_s, 'Task 2')
+      @patient.to_md.must_equal (
+<<-END
+#{@x_date}
+============================
+- Task 1
+- Task 2
+END
+      )
+    end
+  end
   describe '#add_task!' do
     it 'works' do
       t3 = MiniTest::Mock.new
@@ -30,7 +70,7 @@ describe WorkDay do
           mock_task.expect(:subject, x_subject)
           mock_task.expect(:time_taken, time_taken_for_each_task)
         end
-        @patient.time_worked.must_equal (Duration.new(@x_tasks.length * time_taken_for_each_task))
+        @patient.time_worked.must_equal ({x_subject => (Duration.new(@x_tasks.length * time_taken_for_each_task)) })
       end
       it 'when more than one subject is present' do
         time_taken_for_each_task = 23
@@ -50,6 +90,8 @@ describe WorkDay do
         t4.expect(:subject, subject_3)
         t4.expect(:time_taken, time_taken_for_each_task)
         @x_tasks << t4
+
+        @patient = WorkDay.new @x_date, @x_tasks
 
         @patient.time_worked.must_equal (
           {
@@ -78,7 +120,9 @@ describe WorkDay do
       t4.expect(:subject, subject_3)
       @x_tasks << t4
 
-      @patient.time_worked([subject_1, subject_2]).must_equal (
+      @patient = WorkDay.new @x_date, @x_tasks
+
+      @patient.time_worked(subject_1, subject_2).must_equal (
         {
           subject_1 => Duration.new(num_subject_1_tasks * time_taken_for_each_task),
           subject_2 => Duration.new(time_taken_for_each_task)
@@ -104,11 +148,11 @@ describe WorkDay do
         t4.expect(:subject, subject_3)
         @x_tasks << t4
 
+        @patient = WorkDay.new @x_date, @x_tasks
+
         @patient.time_worked(subject_1).must_equal (
-          Duration.new(num_subject_1_tasks * time_taken_for_each_task)
+          {subject_1 => Duration.new(num_subject_1_tasks * time_taken_for_each_task)}
         )
-      end
-      it 'as a single element list' do
       end
     end
   end

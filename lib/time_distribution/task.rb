@@ -12,5 +12,25 @@ module TimeDistribution
       @time_taken = SmartDuration.parse(time_taken)
       @desc = desc
     end
+
+    def to_s() "#{to_headline}: #{to_desc}" end
+
+    def to_desc() @desc.strip end
+
+    def to_headline
+      "#{to_hours_s} hours of #{@subject}"
+    end
+
+    def to_hours
+      @time_taken.total / (60 * 60).to_f
+    end
+
+    def to_hours_s
+      format('%0.2f', to_hours)
+    end
+
+    def to_ssv
+      format("%-25s%10s", @subject, to_hours_s)
+    end
   end
 end
