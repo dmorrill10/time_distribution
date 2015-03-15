@@ -22,18 +22,18 @@ describe WorkDayCollection do
         november: 0,
         december: 0
       })
-      patient.respond_to?(:set_official_work_days_in_january).must_equal true
-      patient.respond_to?(:set_official_work_days_in_february).must_equal true
-      patient.respond_to?(:set_official_work_days_in_march).must_equal true
-      patient.respond_to?(:set_official_work_days_in_april).must_equal true
-      patient.respond_to?(:set_official_work_days_in_may).must_equal true
-      patient.respond_to?(:set_official_work_days_in_june).must_equal true
-      patient.respond_to?(:set_official_work_days_in_july).must_equal true
-      patient.respond_to?(:set_official_work_days_in_august).must_equal true
-      patient.respond_to?(:set_official_work_days_in_september).must_equal true
-      patient.respond_to?(:set_official_work_days_in_october).must_equal true
-      patient.respond_to?(:set_official_work_days_in_november).must_equal true
-      patient.respond_to?(:set_official_work_days_in_december).must_equal true
+      patient.respond_to?(:set_official_work_days_in_january!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_february!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_march!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_april!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_may!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_june!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_july!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_august!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_september!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_october!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_november!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_december!).must_equal true
     end
     it 'with days and official work schedule' do
       x_official_work_days = {
@@ -53,18 +53,18 @@ describe WorkDayCollection do
       patient = WorkDayCollection.new('d1', 'd2', official_work_days: x_official_work_days.dup)
       patient.to_a.must_equal ['d1', 'd2']
       patient.official_work_days.must_equal  x_official_work_days
-      patient.respond_to?(:set_official_work_days_in_january).must_equal true
-      patient.respond_to?(:set_official_work_days_in_february).must_equal true
-      patient.respond_to?(:set_official_work_days_in_march).must_equal true
-      patient.respond_to?(:set_official_work_days_in_april).must_equal true
-      patient.respond_to?(:set_official_work_days_in_may).must_equal true
-      patient.respond_to?(:set_official_work_days_in_june).must_equal true
-      patient.respond_to?(:set_official_work_days_in_july).must_equal true
-      patient.respond_to?(:set_official_work_days_in_august).must_equal true
-      patient.respond_to?(:set_official_work_days_in_september).must_equal true
-      patient.respond_to?(:set_official_work_days_in_october).must_equal true
-      patient.respond_to?(:set_official_work_days_in_november).must_equal true
-      patient.respond_to?(:set_official_work_days_in_december).must_equal true
+      patient.respond_to?(:set_official_work_days_in_january!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_february!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_march!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_april!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_may!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_june!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_july!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_august!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_september!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_october!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_november!).must_equal true
+      patient.respond_to?(:set_official_work_days_in_december!).must_equal true
     end
   end
 

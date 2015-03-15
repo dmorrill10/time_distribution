@@ -15,7 +15,7 @@ module TimeDistribution
     private
     def provide_methods_for_setting_work_days_in_months
       MONTHS.each do |m|
-        self.class().send(:define_method, "set_official_work_days_in_#{m.to_s}") do |num_days|
+        self.class().send(:define_method, "set_official_work_days_in_#{m.to_s}!") do |num_days|
           @official_work_days[m] = num_days
         end
       end
