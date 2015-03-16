@@ -211,7 +211,7 @@ END
 # Mar 14, 2015
 # cmput659, cprg, masters_research, taxes
 # 4.1, 10.866666666666667
-2         14.97
+1         14.97
 Avg       14.97
 END
       )

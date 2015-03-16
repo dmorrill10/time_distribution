@@ -150,7 +150,7 @@ module TimeDistribution
         hours << week_hours.inject(:+)
         string += (
           "# " + week_hours.join(', ') + "\n" +
-          format("%-10d%0.2f\n", week + 1, hours.last)
+          format("%-10d%0.2f\n", week, hours.last)
         )
         week += 1
       end
