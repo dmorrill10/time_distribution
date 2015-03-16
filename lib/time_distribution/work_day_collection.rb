@@ -136,9 +136,13 @@ module TimeDistribution
       hours = []
       week = 1
       work_days_by_weeks do |week_collection|
+        subjects_this_week = week_collection.subjects
+        unless task_types.empty?
+          subjects_this_week &= task_types
+        end
         string += (
           "# #{week_collection.first.date.strftime('%b %-d, %Y')}\n" +
-          "# #{week_collection.subjects.join(', ')}\n"
+          "# #{subjects_this_week.join(', ')}\n"
         )
         week_hours = week_collection.map do |day|
           day.to_hours(*task_types)
