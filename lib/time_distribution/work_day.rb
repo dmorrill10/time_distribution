@@ -34,8 +34,13 @@ module TimeDistribution
 
     def to_ssv
       (
-        "# #{@date.strftime('%b %-d, %Y')}\n" +
-        @tasks.to_ssv
+        "# #{@date.strftime('%b %-d, %Y')}\n" + (
+          if block_given?
+            @tasks.to_ssv { |key| yield(key) }
+          else
+            @tasks.to_ssv
+          end
+        )
       )
     end
   end

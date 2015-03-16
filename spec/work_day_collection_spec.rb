@@ -146,16 +146,75 @@ END
       patient.to_ssv.must_equal (
 <<-END
 # Mar 14, 2015
-taxes                          2.60
-taxes                          1.50
+taxes                               2.60
+taxes                               1.50
 # Mar 13, 2015
-cmput659                       6.92
-cprg                           1.00
-masters_research               1.00
-cmput659                       0.25
-cmput659                       1.70
+cmput659                            6.92
+cprg                                1.00
+masters_research                    1.00
+cmput659                            0.25
+cmput659                            1.70
 END
 )
+    end
+  end
+
+  describe '#time_worked_to_ssv' do
+    it 'works' do
+      patient = new_full_patient
+      patient.time_worked_to_ssv do |subject|
+        subject.to_s.split('_').collect(&:capitalize).join
+      end.must_equal (
+<<-END
+Taxes                               4.10
+Cmput659                            8.87
+Cprg                                1.00
+MastersResearch                     1.00
+END
+      )
+    end
+  end
+
+  describe '#work_days_by_weeks' do
+    it 'works' do
+      patient = new_full_patient
+      patient.work_days_by_weeks.flatten.must_equal patient
+    end
+  end
+
+  describe '#hours_per_day_by_weeks' do
+    it 'works' do
+      patient = new_full_patient
+      patient.hours_per_day_by_weeks.must_equal [[4.1, 10.866666666666667]]
+    end
+  end
+
+  describe '#hours_per_week' do
+    it 'works' do
+      patient = new_full_patient
+      patient.hours_per_week.must_equal [4.1 + 10.866666666666667]
+    end
+  end
+
+  describe '#subjects' do
+    it 'works' do
+      patient = new_full_patient
+      patient.subjects.must_equal [:taxes, :cmput659, :cprg, :masters_research].sort
+    end
+  end
+
+  describe '#hours_per_week_ssv' do
+    it 'works' do
+      patient = new_full_patient
+      patient.hours_per_week_ssv.must_equal (
+<<-END
+# Mar 14, 2015
+# cmput659, cprg, masters_research, taxes
+# 4.1, 10.866666666666667
+2         14.97
+Avg       14.97
+END
+      )
     end
   end
 

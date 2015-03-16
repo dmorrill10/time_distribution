@@ -30,7 +30,17 @@ module TimeDistribution
     end
 
     def to_ssv
-      format("%-25s%10s", @subject, to_hours_s)
+      format(
+        "%-30s%10s",
+        (
+          if block_given?
+            yield(@subject)
+          else
+            @subject
+          end
+        ),
+        to_hours_s
+      )
     end
   end
 end
