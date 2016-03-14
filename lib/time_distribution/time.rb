@@ -1,13 +1,14 @@
 require 'chronic'
+require 'ruby-duration'
 
 module TimeDistribution
   module TimeRefinement
     refine Time do
       def count_forward_to(time)
-        if self > time
-          (Chronic.parse('11:59:59pm') - self) + (time - Chronic.parse('12:00:00am')) + 1
+        (time - self) + if self > time
+          24 * 60 * 60
         else
-          time - self
+          0
         end
       end
     end
