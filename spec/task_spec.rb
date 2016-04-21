@@ -1,4 +1,5 @@
 require_relative 'support/spec_helper'
+require 'yaml'
 
 require 'time_distribution/task'
 require 'time_distribution/smart_duration'
@@ -6,6 +7,28 @@ require 'time_distribution/smart_duration'
 include TimeDistribution
 
 describe Task do
+  let(:yml_string_data) do
+    <<-END
+subject: :time_distribution
+duration: 3:38pm to 4pm
+description: |
+  - Comment 1
+  - Comment 2
+END
+  end
+
+
+  describe '#from_map' do
+    it 'works' do
+      map_data = YAML.load(yml_string_data)
+      patient = Task.from_map(map_data)
+
+      patient.subject.must_equal map_data['subject']
+      patient.time_taken.must_equal SmartDuration.parse(map_data['duration'])
+      patient.desc.must_equal map_data['description']
+    end
+  end
+
   describe '#new' do
     it 'works for three arguments' do
       x_subject = 'subject'

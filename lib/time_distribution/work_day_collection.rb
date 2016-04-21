@@ -12,6 +12,10 @@ module TimeDistribution
 
     MONTHS = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
 
+    def self.from_map(map_data)
+      self.new(*map_data.map { |t| WorkDay.from_map t })
+    end
+
     private
     def provide_methods_for_setting_work_days_in_months
       MONTHS.each do |m|
