@@ -1,4 +1,5 @@
 require 'time'
+require 'yaml'
 
 require_relative 'smart_duration'
 require_relative 'task'
@@ -34,6 +35,10 @@ module TimeDistribution
       MONTHS.each do |m|
         @official_work_days[m] ||= 0
       end
+    end
+
+    def days_to_yaml(opts = {})
+      map { |e| e.to_h }.to_yaml opts
     end
 
     def time_worked

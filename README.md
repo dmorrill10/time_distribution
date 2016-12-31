@@ -1,6 +1,9 @@
 # TimeDistribution
 
-TODO: Write a gem description
+[![Build Status](https://travis-ci.org/dmorrill10/time_distribution.svg?branch=master)](https://travis-ci.org/dmorrill10/time_distribution)
+
+A small library for associating time intervals with tasks in a human friendly
+way.
 
 ## Installation
 

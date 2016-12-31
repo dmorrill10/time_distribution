@@ -26,11 +26,13 @@ module TimeDistribution
       end
     end
 
-    def ==(other)
-      (
-        @date == other.date &&
-        @tasks == other.tasks
-      )
+    def ==(other) (@date == other.date && @tasks == other.tasks) end
+
+    def to_h
+      {
+        'date' => @date.strftime('%B %-d, %Y'),
+        'tasks' => @tasks.map { |e| e.to_h }
+      }
     end
 
     # @param [Task] task Adds +task+ to the list of tasks completed on this work day.

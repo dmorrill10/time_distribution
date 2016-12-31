@@ -17,6 +17,7 @@ module TimeDistribution
     # @param [#to_s] desc The task's description.
     def initialize(subject, time_taken, desc)
       @subject = subject
+      @duration_string = time_taken
       @time_taken = SmartDuration.parse(time_taken)
       @desc = desc
     end
@@ -30,6 +31,14 @@ module TimeDistribution
     end
 
     def to_s() "#{to_headline}: #{to_desc}" end
+
+    def to_h
+      {
+        'subject' => @subject.to_s,
+        'duration' => @duration_string,
+        'description' => @desc
+      }
+    end
 
     def to_desc() @desc.strip end
 

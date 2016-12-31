@@ -9,17 +9,18 @@ include TimeDistribution
 describe WorkDayCollection do
   let(:yml_string_data) do
     <<-END
+---
 -
   date: April 21, 2016
   tasks:
     -
-      subject: :time_distribution
+      subject: time_distribution
       duration: 6:38pm to 7pm
       description: |
         - Comment 1
         - Comment 2
     -
-      subject: :aaaaaa
+      subject: aaaaaa
       duration: 4:38am to 6pm
       description: |
         - Ahdkjlan akjdlnkfn
@@ -27,29 +28,35 @@ describe WorkDayCollection do
   date: April 20, 2016
   tasks:
     -
-      subject: :time_distribution
+      subject: time_distribution
       duration: 6:38pm to 7pm
       description: |
         - Comment 3
         - Comment 4
     -
-      subject: :bbbbb
+      subject: bbbbb
       duration: 4:38am to 6pm
       description: |
         - jkljkljlkj syowueiorue
 END
   end
 
+  let(:patient) do
+    map_data = YAML.load(yml_string_data)
+    _patient = WorkDayCollection.from_map map_data
+    _patient.must_equal map_data.map { |t| WorkDay.from_map t }
+    _patient
+  end
 
   describe '#from_map' do
-    let(:patient) do
-      map_data = YAML.load(yml_string_data)
-      _patient = WorkDayCollection.from_map map_data
-      _patient.must_equal map_data.map { |t| WorkDay.from_map t }
-      _patient
-    end
     it 'works' do
       patient
+    end
+  end
+
+  describe '#days_to_yaml' do
+    it 'works' do
+      patient.must_equal WorkDayCollection.from_map YAML.load(patient.days_to_yaml)
     end
   end
 
