@@ -10,3 +10,4 @@ Rake::TestTask.new do |t|
   t.verbose = false
   t.warning = false # pry-rescue has a lot of warnings
 end
+task :default => :test
